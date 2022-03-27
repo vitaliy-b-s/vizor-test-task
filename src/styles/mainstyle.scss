@@ -51,17 +51,17 @@ body {
   height: 100%;
   position: relative;
   background-color: #f5f5dc;
+}
 
-  .cards_list_container {
-    @include flexCenter;
-    flex-direction: column;
-    width: 30%;
-    height: 80%;
-    max-height: 80%;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding: 10px;
-    background-color: white;
-  }
+.cards_list_container {
+  @include flexCenter;
+  flex-direction: column;
+  width: 30%;
+  height: 80%;
+  max-height: 80%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 10px;
+  background-color: white;
 }
 
 .cards_list {
@@ -76,14 +76,28 @@ body {
   padding: 0;
 }
 
+.card_container {
+  @include flexBetween;
+  flex-direction: column;
+  width: 90%;
+  min-width: 250px;
+  height: 300px;
+  min-height: 300px;
+  margin-top: 10px;
+  position: relative;
+}
+
 .card {
   @include flexBetween;
   flex-direction: column;
   position: relative;
-  width: 95%;
-  max-width: 95%;
+  width: 80%;
+  max-width: 80%;
+  height: 80%;
   margin-bottom: 20px;
   padding-bottom: 10px;
+  border: 1px solid gray;
+  border-radius: 10px;
 }
 
 .horizontal_line {
@@ -93,12 +107,35 @@ body {
   background-color: gray;
 }
 
+.card_number {
+  @include flexCenter;
+  padding: 4px;
+  border-radius: 5px;
+  margin-top: 5px;
+  font-size: 1.2rem;
+  position: absolute;
+  bottom: 3px;
+  left: 5px;
+}
+
 .card_image {
-  width: 80%;
-  max-width: 80%;
+  width: 40%;
+  max-width: 40%;
+  min-height: 30%;
   height: auto;
-  border: 1px solid gray;
-  border-radius: 10px;
+  position: absolute;
+  top: 3px;
+  right: 3px;
+}
+
+.card_comment {
+  @include flexBetween;
+  @include scrollBar;
+  flex-direction: column;
+  max-width: 100%;
+  overflow: auto;
+  padding: 5px;
+  height: 10%;
 }
 
 .new_card_editor_container,
@@ -121,17 +158,13 @@ body {
   border-radius: 5px;
 }
 
+.card_number_inputs {
+  margin: 10px;
+}
+
 .card_number_container {
   @include flexBetween;
   flex-direction: column;
-}
-
-.card_number {
-  @include flexCenter;
-  padding: 4px;
-  border-radius: 5px;
-  margin-top: 5px;
-  font-size: 1.2rem;
 }
 
 .card_number_part {
@@ -140,15 +173,6 @@ body {
   margin: 0 5px;
   border: none;
   border-radius: 3px;
-}
-
-.card_comment {
-  @include flexBetween;
-  @include scrollBar;
-  flex-direction: column;
-  max-width: 100%;
-  overflow: auto;
-  padding: 5px;
 }
 
 .card_comment_input {
@@ -174,7 +198,7 @@ body {
   transform: scale(0.8);
 }
 
-.card:hover .delete_card_button {
+.card_container:hover .delete_card_button {
   display: block;
 }
 
@@ -320,4 +344,57 @@ body {
 .app_button:disabled {
   box-shadow: rgba(60, 64, 67, 0.3) 0 1px 3px 0,
     rgba(60, 64, 67, 0.15) 0 4px 8px 3px;
+}
+
+h3 {
+  text-align: center;
+}
+
+@media (max-width: 960px) {
+  .cards_list_container {
+    width: 60%;
+  }
+
+  .new_card_editor,
+  .delete_popup {
+    width: 60%;
+  }
+  .card_number_part {
+    width: 40px;
+  }
+}
+
+@media (max-width: 800px) {
+  .cards_list_container {
+    width: 60%;
+  }
+
+  .new_card_editor,
+  .delete_popup {
+    width: 60%;
+  }
+  .card_number_part {
+    width: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cards_list_container {
+    width: 85%;
+  }
+  .card_container {
+    @include flexBetween;
+    flex-direction: column;
+    width: 90%;
+    min-width: 200px;
+    height: 250px;
+    min-height: 250px;
+  }
+  .new_card_editor,
+  .delete_popup {
+    width: 90%;
+  }
+  .card_number_part {
+    width: 40px;
+  }
 }
