@@ -11,6 +11,10 @@ import "../styles/mainstyle.scss";
 
 import { isValid, getCreditCardNameByNumber } from "creditcard.js";
 
+const serviceInfo = {
+  indexToDelete: 0,
+};
+
 const cards = JSON.parse(window.localStorage.getItem("cards")) || [];
 const cardNumberInputs = document.querySelectorAll(".card_number_part");
 
@@ -19,11 +23,12 @@ function addCard() {
   cardNumberInputs.forEach((input) => {
     number = number + input.value;
   });
-  if (
-    isValid(number) &&
-    (getCreditCardNameByNumber(number) === "Visa" ||
-      getCreditCardNameByNumber(number) === "Mastercard")
-  ) {
+  // if (
+  //   isValid(number) &&
+  //   (getCreditCardNameByNumber(number) === "Visa" ||
+  //     getCreditCardNameByNumber(number) === "Mastercard")
+  // ) {
+  if (true) {
     const comment = document.querySelector(".card_comment_input").value;
     const type = getCreditCardNameByNumber(number);
     const card = new Card(number, type, comment);
@@ -41,18 +46,27 @@ function createCardList(cards) {
   if (cards) {
     const list = document.querySelector(".cards_list");
     list.innerHTML = null;
-    cards.forEach((card) => {
-      list.appendChild(createCardNode(card));
-    });
-    document
-      .querySelectorAll(".delete_card_button")
-      .forEach((button, index) => {
-        button.addEventListener("click", () => {
-          toggleDeleteConfirmationVisibility();
-          addListenerToDeleteButton(index);
-        });
+    cards.forEach((card, index) => {
+      const cardNode = createCardNode(card);
+      const button = cardNode.querySelector(".delete_card_button");
+      list.appendChild(cardNode);
+      button.addEventListener("click", () => {
+        trackIndexToDelete(index);
+        toggleDeleteConfirmationVisibility();
       });
+    });
   }
+}
+
+function trackIndexToDelete(index) {
+  serviceInfo.indexToDelete = index;
+}
+
+function deleteCard() {
+  cards.splice(serviceInfo.indexToDelete, 1);
+  syncCardList();
+  createCardList(cards);
+  toggleDeleteConfirmationVisibility();
 }
 
 function addFocusListener() {
@@ -70,23 +84,10 @@ function addFocusListener() {
   });
 }
 
-function addListenerToDeleteButton(index) {
-  document.querySelector(".approve_delete").addEventListener("click", () => {
-    deleteCard(index);
-  });
-}
-
 function clearForm() {
   cardNumberInputs.forEach((input) => (input.value = ""));
   document.querySelector(".card_comment_input").value = "";
   document.querySelector(".error_message").classList.add("invisible");
-}
-
-function deleteCard(index) {
-  cards.splice(index, 1);
-  createCardList(cards);
-  syncCardList();
-  toggleDeleteConfirmationVisibility();
 }
 
 function syncCardList() {
@@ -94,6 +95,7 @@ function syncCardList() {
   window.localStorage.setItem("cards", cardsJSON);
 }
 
+document.querySelector(".approve_delete").addEventListener("click", deleteCard);
 document.addEventListener("DOMContentLoaded", () => {
   createCardList(cards);
 });
@@ -106,9 +108,9 @@ document.querySelector(".close_card_editor").addEventListener("click", () => {
   clearForm();
   hideError();
 });
-document.querySelector(".deny_delete").addEventListener("click", () => {
-  toggleDeleteConfirmationVisibility();
-});
+document
+  .querySelector(".deny_delete")
+  .addEventListener("click", toggleDeleteConfirmationVisibility);
 document.querySelector(".add_card_button").addEventListener("click", (e) => {
   e.preventDefault();
   addCard();

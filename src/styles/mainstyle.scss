@@ -50,7 +50,7 @@ body {
   width: 100%;
   height: 100%;
   position: relative;
-  background-color: #f5f5dc;
+  background-color: rgb(239, 234, 226);
 }
 
 .cards_list_container {
@@ -62,6 +62,7 @@ body {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 10px;
   background-color: white;
+  border-radius: 10px;
 }
 
 .cards_list {
@@ -98,6 +99,7 @@ body {
   padding-bottom: 10px;
   border: 1px solid gray;
   border-radius: 10px;
+  background-color: rgb(200, 189, 178);
 }
 
 .horizontal_line {
@@ -238,7 +240,7 @@ body {
 }
 
 .btn-white {
-  background-color: #b6bc84;
+  background-color: rgb(148, 132, 123);
   color: #ffffff;
 }
 
