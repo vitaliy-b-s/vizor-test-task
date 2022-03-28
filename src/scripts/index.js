@@ -23,12 +23,11 @@ function addCard() {
   cardNumberInputs.forEach((input) => {
     number = number + input.value;
   });
-  // if (
-  //   isValid(number) &&
-  //   (getCreditCardNameByNumber(number) === "Visa" ||
-  //     getCreditCardNameByNumber(number) === "Mastercard")
-  // ) {
-  if (true) {
+  if (
+    isValid(number) &&
+    (getCreditCardNameByNumber(number) === "Visa" ||
+      getCreditCardNameByNumber(number) === "Mastercard")
+  ) {
     const comment = document.querySelector(".card_comment_input").value;
     const type = getCreditCardNameByNumber(number);
     const card = new Card(number, type, comment);
