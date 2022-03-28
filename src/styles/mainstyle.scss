@@ -133,9 +133,10 @@ body {
   @include scrollBar;
   flex-direction: column;
   max-width: 100%;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   padding: 5px;
-  height: 10%;
+  height: 15%;
 }
 
 .new_card_editor_container,
@@ -237,7 +238,7 @@ body {
 }
 
 .btn-white {
-  background-color: #d7b4ec;
+  background-color: #b6bc84;
   color: #ffffff;
 }
 
@@ -307,7 +308,7 @@ body {
 
 .app_button:hover {
   background: #f6f9fe;
-  color: #e9a7f8;
+  color: #caba7f;
 }
 
 .app_button:active {
@@ -350,9 +351,23 @@ h3 {
   text-align: center;
 }
 
+@media (max-width: 1024px) {
+  .cards_list_container {
+    width: 50%;
+  }
+
+  .new_card_editor,
+  .delete_popup {
+    width: 60%;
+  }
+  .card_number_part {
+    width: 40px;
+  }
+}
+
 @media (max-width: 960px) {
   .cards_list_container {
-    width: 60%;
+    width: 50%;
   }
 
   .new_card_editor,
