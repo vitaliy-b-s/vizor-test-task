@@ -178,6 +178,11 @@ body {
   border-radius: 3px;
 }
 
+.card_number_part:focus,
+.card_number_part:active {
+  outline: none;
+}
+
 .card_comment_input {
   width: 90%;
   font-size: 1.1rem;

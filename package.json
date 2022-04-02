@@ -13,7 +13,7 @@
   "author": "Vitali Babrykovich",
   "license": "ISC",
   "dependencies": {
-    "creditcard.js": "^3.0.13",
+    "card-validator": "^8.1.1",
     "prettier": "^2.6.0",
     "style-loader": "^3.3.1"
   },

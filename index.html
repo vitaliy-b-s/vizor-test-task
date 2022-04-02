@@ -10,6 +10,17 @@
     <title>Credit card holder</title>
   </head>
   <body>
+    <template id="card">
+      <div class="card_container">
+        <li class="card">
+          <img src="" alt="" class="card_image" />
+          <div class="card_number"></div>
+        </li>
+        <div class="card_comment"></div>
+        <button class="open_delete_conf_button">Delete</button>
+      </div>
+    </template>
+
     <div class="app">
       <div class="cards_list_container">
         <a href="#" class="open_editor_button btn-white">Add card</a>
@@ -53,16 +64,18 @@
             <h3 style="color: red" class="error_message invisible">
               Please check the correctness of the number
             </h3>
+            <h3 style="color: red" class="warning_message invisible">
+              The card is already present!
+            </h3>
           </div>
           <div class="card_comment">
             <h3 style="margin: 0">Please write some comment(optional)</h3>
-            <textarea
-              rows="5"
-              style="resize: none"
+            <input
+              type="text"
               id="cardComment"
               maxlength="1024"
               class="card_comment_input"
-            ></textarea>
+            />
             <button class="add_card_button app_button">Add card to list</button>
           </div>
           <button class="close_card_editor">&#10060;</button>
