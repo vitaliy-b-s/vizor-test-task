@@ -75,6 +75,7 @@ body {
 
 .cards_list {
   @include flexCenter;
+  @include scrollBar;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -169,6 +170,7 @@ body {
 .card_comment {
   width: 90%;
   @include flexCenter;
+  @include scrollBar;
   overflow-y: hidden;
   overflow-x: auto;
 }
