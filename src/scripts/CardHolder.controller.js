@@ -6,12 +6,12 @@ export class CardHolderController {
 
     this.view.bindCardNumberCheckOnInput(this.handleCheckNumberOnInput);
     this.view.bindCommentInput(this.handleCommentInput);
-    this.view.bindAddCardToList(this.addCardToList);
+    this.view.bindCardCheckOnAdd(this.cardCheckOnAdd);
     this.view.bindDeleteCardFromList(this.deleteCardFromList);
 
     this.model.bindCardNumberCheck(this.onCardNumberChecked);
     this.model.bindCardDuplicated(this.showWarningMessage);
-    this.model.bindApproveAddingCard(this.addCardToScreen);
+    this.model.bindAddCardToList(this.addCardToScreen);
     this.model.bindInitializeApp(this.showExistingCards);
   }
 
@@ -27,8 +27,8 @@ export class CardHolderController {
     this.view.setCardCheckResult(result);
   };
 
-  addCardToList = (number) => {
-    this.model.addCardToList(number);
+  cardCheckOnAdd = (number) => {
+    this.model.cardCheckOnAdd(number);
   };
 
   showWarningMessage = () => {
@@ -36,7 +36,7 @@ export class CardHolderController {
   };
 
   addCardToScreen = (card) => {
-    this.view.addCard(card);
+    this.view.addCardToDom(card);
   };
 
   showExistingCards = (cards) => {

@@ -15,8 +15,8 @@ export class CardHolderModel {
     };
   }
 
-  _getItemsFromLocalStorage = (key) => JSON.parse(window.localStorage.getItem(key))
-
+  _getItemsFromLocalStorage = (key) =>
+    JSON.parse(window.localStorage.getItem(key));
 
   _setItemToLocalStorage = (key, value) => {
     return Promise.resolve().then(function () {
@@ -36,8 +36,8 @@ export class CardHolderModel {
     this.onCardDuplicated = callback;
   };
 
-  bindApproveAddingCard = (callback) => {
-    this.onApproveAddingCard = callback;
+  bindAddCardToList = (callback) => {
+    this.onCardAddToList = callback;
   };
 
   initializeApp = () => {
@@ -50,9 +50,9 @@ export class CardHolderModel {
     const cardToCheck = numberToValidate.card;
 
     if (
-        isPotentiallyValid &&
-        (cardToCheck.type === this.cardTypes.visa ||
-            cardToCheck.type === this.cardTypes.mastercard)
+      isPotentiallyValid &&
+      (cardToCheck.type === this.cardTypes.visa ||
+        cardToCheck.type === this.cardTypes.mastercard)
     ) {
       this.provideCardNumberCheckResult(true);
     } else {
@@ -60,7 +60,7 @@ export class CardHolderModel {
     }
   };
 
-  addCardToList = (number) => {
+  cardCheckOnAdd = (number) => {
     const numberToValidate = this.valid.number(number);
     const cardToCheck = numberToValidate.card;
     const isValid = numberToValidate.isValid;
@@ -74,7 +74,7 @@ export class CardHolderModel {
       this.cardToAdd.type = cardToCheck.type;
       this.existingCards.push(this.cardToAdd);
       this._setItemToLocalStorage("cards", this.existingCards);
-      this.onApproveAddingCard(this.cardToAdd);
+      this.onCardAddToList(this.cardToAdd);
     }
   };
 

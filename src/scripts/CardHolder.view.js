@@ -76,7 +76,7 @@ export class CardHolderView {
     });
   };
 
-  bindAddCardToList = (handler) => {
+  bindCardCheckOnAdd = (handler) => {
     this.addCardButton.addEventListener("click", () => {
       handler(this.enteredNumber.join(""));
     });
@@ -89,6 +89,11 @@ export class CardHolderView {
       this._toggleVisibility(this.confirmationPopup);
     });
   };
+
+  addCardToDom = (card) => {
+    this.addCard(card);
+    this._toggleVisibility(this.cardEditor)
+  }
 
   addCard = (card) => {
     const cardTemplate = this.cardTemplate.content.cloneNode(true);
@@ -115,7 +120,6 @@ export class CardHolderView {
 
     this.list.appendChild(cardTemplate);
     this.clearForm();
-    this._toggleVisibility(this.cardEditor);
   };
 
   deleteCard = (element) => {
