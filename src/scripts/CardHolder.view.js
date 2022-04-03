@@ -79,7 +79,6 @@ export class CardHolderView {
   bindAddCardToList = (handler) => {
     this.addCardButton.addEventListener("click", () => {
       handler(this.enteredNumber.join(""));
-      this._toggleVisibility(this.cardEditor);
     });
   };
 
@@ -116,6 +115,7 @@ export class CardHolderView {
 
     this.list.appendChild(cardTemplate);
     this.clearForm();
+    this._toggleVisibility(this.cardEditor);
   };
 
   deleteCard = (element) => {
