@@ -1,8 +1,11 @@
-import { Model } from "./cardHolderModel";
-import { Controller } from "./cardHolderController";
-import { View } from "./cardHolderView";
+import { CardHolderModel } from "./CardHolder.model";
+import { CardHolderController } from "./CardHolder.controller";
+import { CardHolderView } from "./CardHolder.view";
 import "../styles/mainstyle.scss";
 
-const app = new Controller(new Model(), new View());
+const app = new CardHolderController(
+  new CardHolderModel(),
+  new CardHolderView()
+);
 
-app.model.initializeApp();
+app.initializeApp();

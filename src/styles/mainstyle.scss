@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap");
 
 @mixin flexCenter {
   display: flex;
@@ -35,6 +36,13 @@
   }
 }
 
+@font-face {
+  font-family: "cardFont";
+  font-style: normal;
+  font-weight: 500;
+  src: url("../assets/fonts/Credit-Card-Font.ttf");
+}
+
 html,
 body {
   @include flexCenter;
@@ -42,7 +50,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif !important;
+  font-family: "Roboto", sans-serif;
 }
 
 .app {
@@ -66,79 +74,103 @@ body {
 }
 
 .cards_list {
-  @include flexBetween;
-  @include scrollBar;
+  @include flexCenter;
   flex-direction: column;
-  width: 100%;
-  max-width: 100%;
-  max-height: 80%;
-  overflow: auto;
+  align-items: center;
+  justify-content: flex-start;
   list-style-type: none;
   padding: 0;
+  margin: 20px 0 0 0;
+  width: 100%;
+  min-width: 300px;
+  height: 90%;
+  overflow-y: auto;
+  padding: 10px 0;
 }
 
 .card_container {
-  @include flexBetween;
-  flex-direction: column;
-  width: 90%;
-  min-width: 250px;
-  height: 300px;
-  min-height: 300px;
-  margin-top: 10px;
+  width: 85%;
   position: relative;
+  margin-bottom: 25px;
 }
 
 .card {
-  @include flexBetween;
-  flex-direction: column;
   position: relative;
-  width: 80%;
-  max-width: 80%;
-  height: 80%;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border: 1px solid gray;
-  border-radius: 10px;
-  background-color: rgb(200, 189, 178);
+  padding-top: 52%;
+  width: 95%;
+  background-color: black;
+  border: none;
+  border-radius: 13px;
+  color: wheat;
+  font-family: "Titillium Web", sans-serif;
+  margin-bottom: 15px;
+  min-width: 270px;
 }
 
-.horizontal_line {
-  width: 100%;
-  height: 2px;
-  color: gray;
-  background-color: gray;
+.card:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transform: scale(1.04);
+  transition-duration: 0.5s;
 }
 
 .card_number {
   @include flexCenter;
-  padding: 4px;
-  border-radius: 5px;
-  margin-top: 5px;
-  font-size: 1.2rem;
   position: absolute;
-  bottom: 3px;
-  left: 5px;
+  width: 100%;
+  bottom: 30%;
+  font-size: 2rem;
+  color: white;
+  letter-spacing: 1.5px;
+}
+
+.title {
+  position: absolute;
+  top: 2%;
+  left: 5%;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.bank {
+  position: absolute;
+  top: 2%;
+  right: 5%;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.chip {
+  position: absolute;
+  left: 5%;
+  top: 25%;
+  width: 60px;
+  height: auto;
+}
+
+.name {
+  position: absolute;
+  left: 5%;
+  bottom: 10%;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 
 .card_image {
-  width: 40%;
-  max-width: 40%;
-  min-height: 30%;
-  height: auto;
   position: absolute;
-  top: 3px;
-  right: 3px;
+  right: 5%;
+  width: 20%;
+  height: auto;
+  bottom: 5%;
 }
 
 .card_comment {
-  @include flexBetween;
-  @include scrollBar;
-  flex-direction: column;
-  max-width: 100%;
-  overflow-x: auto;
+  width: 90%;
+  @include flexCenter;
   overflow-y: hidden;
-  padding: 5px;
-  height: 15%;
+  overflow-x: auto;
 }
 
 .new_card_editor_container,
@@ -158,7 +190,6 @@ body {
   padding: 20px 0 30px 0;
   background-color: #e3e3d7;
   position: relative;
-  border-radius: 5px;
 }
 
 .card_number_inputs {
@@ -178,18 +209,24 @@ body {
   border-radius: 3px;
 }
 
-.card_number_part:focus,
-.card_number_part:active {
-  outline: none;
-}
-
 .card_comment_input {
   width: 90%;
   font-size: 1.1rem;
   padding: 4px;
 }
 
-.delete_card_button {
+.card_number_part {
+  text-align: center;
+  max-width: 50px;
+}
+
+.card_number_container,
+.card_comment_container {
+  @include flexBetween;
+  flex-direction: column;
+}
+
+.close_card_editor {
   position: absolute;
   top: 3px;
   right: 3px;
@@ -198,73 +235,18 @@ body {
   cursor: pointer;
 }
 
-.delete_card_button:hover {
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-
-.delete_card_button:active {
-  transform: scale(0.8);
-}
-
-.card_container:hover .delete_card_button {
-  display: block;
-}
-
-.close_card_editor {
-  position: absolute;
-  top: 5px;
-  right: 10px;
+.open_delete_conf_button {
+  background: transparent;
   border: none;
-  background-color: transparent;
   cursor: pointer;
-}
-
-.card_number_part {
-  text-align: center;
-  max-width: 50px;
-}
-
-.open_editor_button:link,
-.open_editor_button:visited {
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 15px 40px;
-  display: inline-block;
-  border-radius: 100px;
-  transition: all 0.2s;
-}
-
-.open_editor_button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.open_editor_button:active {
-  transform: translateY(-1px);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-
-.btn-white {
-  background-color: rgb(148, 132, 123);
-  color: #ffffff;
-}
-
-.open_editor_button::after {
-  content: "";
-  display: inline-block;
-  height: 100%;
-  width: 100%;
-  border-radius: 100px;
   position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  transition: all 0.2s;
+  top: 3%;
+  right: -2%;
 }
 
-.open_editor_button:hover::after {
-  transform: scaleX(1.4) scaleY(1.6);
-  opacity: 0;
+.open_delete_conf_button:active,
+.open_delete_conf_button:focus {
+  transform: scale(1.2);
 }
 
 .invisible {
@@ -277,7 +259,7 @@ body {
 }
 
 .app_button {
-  margin-top: 10px;
+  margin: 10px;
   align-items: center;
   appearance: none;
   background-color: #fff;
@@ -354,69 +336,145 @@ body {
     rgba(60, 64, 67, 0.15) 0 4px 8px 3px;
 }
 
+.open_editor_button:link,
+.open_editor_button:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px 40px;
+  display: inline-block;
+  border-radius: 100px;
+  transition: all 0.2s;
+}
+
+.open_editor_button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.open_editor_button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-white {
+  background-color: rgb(148, 132, 123);
+  color: #ffffff;
+}
+
+.open_editor_button::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all 0.2s;
+}
+
+.open_editor_button:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
+}
+
 h3 {
   text-align: center;
 }
 
-@media (max-width: 1024px) {
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
   .cards_list_container {
+    width: 80%;
+  }
+  .chip {
+    width: 15%;
+  }
+
+  .card_number_part {
+    max-width: 35px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .cards_list_container {
+    width: 55%;
+  }
+  .chip {
+    width: 15%;
+  }
+  .card_number {
+    font-size: 1.4rem;
+  }
+  .new_card_editor,
+  .delete_popup {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .card_number {
+    font-size: 1.3rem;
+  }
+  .chip {
+    width: 13%;
+  }
+  .new_card_editor,
+  .delete_popup {
+    width: 80%;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .cards_list_container {
+    width: 55%;
+  }
+  .chip {
+    width: 15%;
+  }
+  .card_number {
+    font-size: 1.4rem;
+  }
+  .new_card_editor,
+  .delete_popup {
+    width: 60%;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .cards_list_container {
+    width: 45%;
+  }
+  .chip {
+    width: 15%;
+  }
+  .card_number {
+    font-size: 1.6rem;
+  }
+  .new_card_editor,
+  .delete_popup {
     width: 50%;
   }
-
-  .new_card_editor,
-  .delete_popup {
-    width: 60%;
-  }
-  .card_number_part {
-    width: 40px;
-  }
 }
 
-@media (max-width: 960px) {
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
   .cards_list_container {
-    width: 50%;
+    width: 30%;
   }
-
-  .new_card_editor,
-  .delete_popup {
-    width: 60%;
+  .chip {
+    width: 15%;
   }
-  .card_number_part {
-    width: 40px;
-  }
-}
-
-@media (max-width: 800px) {
-  .cards_list_container {
-    width: 60%;
-  }
-
-  .new_card_editor,
-  .delete_popup {
-    width: 60%;
-  }
-  .card_number_part {
-    width: 40px;
-  }
-}
-
-@media (max-width: 640px) {
-  .cards_list_container {
-    width: 85%;
-  }
-  .card_container {
-    @include flexBetween;
-    flex-direction: column;
-    width: 90%;
-    min-width: 200px;
-    height: 250px;
-    min-height: 250px;
+  .card_number {
+    font-size: 1.7rem;
   }
   .new_card_editor,
   .delete_popup {
-    width: 90%;
-  }
-  .card_number_part {
-    width: 40px;
+    width: 35%;
   }
 }

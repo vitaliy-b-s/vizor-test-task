@@ -1,4 +1,4 @@
-export class Model {
+export class CardHolderModel {
   existingCards;
 
   constructor() {
@@ -21,7 +21,7 @@ export class Model {
     return cards;
   };
 
-  _setCardsToLocalStorage = (key, value) => {
+  _setItemToLocalStorage = (key, value) => {
     return Promise.resolve().then(function () {
       window.localStorage.setItem(key, JSON.stringify(value));
     });
@@ -31,16 +31,16 @@ export class Model {
     this.onInitializeApp = callback;
   };
 
-  bindCardCheckResultOnInput = (callback) => {
-    this.onBindCardCheckResultOnInput = callback;
+  bindCardNumberCheck = (callback) => {
+    this.provideCardNumberCheckResult = callback;
   };
 
-  bindShowWarningMessage = (callback) => {
-    this.onBindShowWarningMessage = callback;
+  bindCardPresenceCheckError = (callback) => {
+    this.cardPresenceCheckError = callback;
   };
 
-  bindAddCardToScreen = (callback) => {
-    this.onBindAddCardToScreen = callback;
+  bindApproveAddingCard = (callback) => {
+    this.onApproveAddingCard = callback;
   };
 
   initializeApp = () => {
@@ -57,9 +57,9 @@ export class Model {
       (cardToCheck.type === this.cardTypes.visa ||
         cardToCheck.type === this.cardTypes.mastercard)
     ) {
-      this.onBindCardCheckResultOnInput(true);
+      this.provideCardNumberCheckResult(true);
     } else {
-      this.onBindCardCheckResultOnInput(false);
+      this.provideCardNumberCheckResult(false);
     }
   };
 
@@ -69,15 +69,15 @@ export class Model {
     const isValid = numberToValidate.isValid;
 
     if (number.length < 16 || !isValid) {
-      this.onBindCardCheckResultOnInput(false);
+      this.provideCardNumberCheckResult(false);
     } else if (this.checkIfCardPresent(number)) {
-      this.onBindShowWarningMessage();
+      this.cardPresenceCheckError();
     } else {
       this.cardToAdd.number = number;
       this.cardToAdd.type = cardToCheck.type;
       this.existingCards.push(this.cardToAdd);
-      this._setCardsToLocalStorage("cards", this.existingCards);
-      this.onBindAddCardToScreen(this.cardToAdd);
+      this._setItemToLocalStorage("cards", this.existingCards);
+      this.onApproveAddingCard(this.cardToAdd);
     }
   };
 
@@ -88,7 +88,7 @@ export class Model {
 
     this.existingCards.splice(indexToDelete, 1);
 
-    this._setCardsToLocalStorage("cards", this.existingCards);
+    this._setItemToLocalStorage("cards", this.existingCards);
   };
 
   checkIfCardPresent = (number) => {

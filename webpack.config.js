@@ -25,12 +25,18 @@ module.exports = {
         use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/,
+        test: /\.(jpe?g|png|gif|svg|webp)$/,
         use: [
           {
             loader: "file-loader",
           },
         ],
+      },
+      {
+        test: /\.(woff|woff2|ttf)$/,
+        use: {
+          loader: "url-loader",
+        },
       },
     ],
   },

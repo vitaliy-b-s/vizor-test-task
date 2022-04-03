@@ -1,16 +1,17 @@
-export class Controller {
+export class CardHolderController {
   constructor(model, view) {
     this.model = model;
     this.view = view;
+    this.initializeApp = this.model.initializeApp;
 
     this.view.bindCardNumberCheckOnInput(this.handleCheckNumberOnInput);
     this.view.bindCommentInput(this.handleCommentInput);
     this.view.bindAddCardToList(this.addCardToList);
-    this.view.bindDeleteCardFromList(this.deleteCardFromList)
+    this.view.bindDeleteCardFromList(this.deleteCardFromList);
 
-    this.model.bindCardCheckResultOnInput(this.onCardCheckResultChanged);
-    this.model.bindShowWarningMessage(this.showWarningMessage);
-    this.model.bindAddCardToScreen(this.addCardToScreen);
+    this.model.bindCardNumberCheck(this.onCardNumberChecked);
+    this.model.bindCardPresenceCheckError(this.showWarningMessage);
+    this.model.bindApproveAddingCard(this.addCardToScreen);
     this.model.bindInitializeApp(this.showExistingCards);
   }
 
@@ -22,7 +23,7 @@ export class Controller {
     this.model.addCommentToCard(comment);
   };
 
-  onCardCheckResultChanged = (result) => {
+  onCardNumberChecked = (result) => {
     this.view.setCardCheckResult(result);
   };
 
@@ -43,6 +44,6 @@ export class Controller {
   };
 
   deleteCardFromList = (number) => {
-    this.model.deleteCardFromList(number)
-  }
+    this.model.deleteCardFromList(number);
+  };
 }

@@ -1,7 +1,9 @@
 import visaImg from "../assets/images/visa.png";
 import mastercardImg from "../assets/images/mastercard.png";
+import deleteIcon from "../assets/images/delete.png";
+import chip from "../assets/images/chip.png";
 
-export class View {
+export class CardHolderView {
   constructor() {
     this.list = document.querySelector(".cards_list");
     this.openEditorButton = document.querySelector(".open_editor_button");
@@ -76,6 +78,7 @@ export class View {
   bindAddCardToList = (handler) => {
     this.addCardButton.addEventListener("click", () => {
       handler(this.enteredNumber.join(""));
+      this._toggleVisibility(this.cardEditor);
     });
   };
 
@@ -87,16 +90,14 @@ export class View {
     });
   };
 
-  showExistingCards = (cards) => {
-    cards.forEach((card) => this.addCard(card));
-  };
-
   addCard = (card) => {
     const cardTemplate = this.cardTemplate.content.cloneNode(true);
     const img = cardTemplate.querySelector(".card_image");
     const comment = cardTemplate.querySelector(".card_comment");
     const number = cardTemplate.querySelector(".card_number");
     const deleteButton = cardTemplate.querySelector(".open_delete_conf_button");
+    const deleteButtonIcon = cardTemplate.querySelector(".delete-button-icon");
+    const chipImage = cardTemplate.querySelector(".chip");
 
     deleteButton.addEventListener("click", (event) => {
       this._toggleVisibility(this.confirmationPopup);
@@ -109,15 +110,21 @@ export class View {
     });
 
     img.src = card.type === "visa" ? visaImg : mastercardImg;
+    chipImage.src = chip;
+    deleteButtonIcon.src = deleteIcon;
     comment.innerText = card.comment;
-    number.innerText = card.number;
+    number.innerText = card.number.match(/.{1,4}/g).join(" ");
 
     this.list.appendChild(cardTemplate);
-    this._toggleVisibility(this.cardEditor);
+    this.clearForm();
   };
 
   deleteCard = (element) => {
     element.remove();
+  };
+
+  showExistingCards = (cards) => {
+    cards.forEach((card) => this.addCard(card));
   };
 
   toggleInputsError = (error) => {
@@ -150,6 +157,7 @@ export class View {
   showWarningMessage = () => {
     this.warningMessage.classList.remove("invisible");
   };
+
   hideWarningMessage = () => {
     this.warningMessage.classList.add("invisible");
   };
