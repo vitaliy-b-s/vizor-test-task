@@ -80,7 +80,6 @@ body {
   align-items: center;
   justify-content: flex-start;
   list-style-type: none;
-  padding: 0;
   margin: 20px 0 0 0;
   width: 100%;
   min-width: 300px;
@@ -90,7 +89,7 @@ body {
 }
 
 .card_container {
-  width: 85%;
+  width: 80%;
   position: relative;
   margin-bottom: 25px;
 }
@@ -105,7 +104,7 @@ body {
   color: wheat;
   font-family: "Titillium Web", sans-serif;
   margin-bottom: 15px;
-  min-width: 270px;
+  min-width: 230px;
 }
 
 .card:hover {
@@ -192,6 +191,7 @@ body {
   padding: 20px 0 30px 0;
   background-color: #e3e3d7;
   position: relative;
+  border-radius: 10px;
 }
 
 .card_number_inputs {
@@ -243,7 +243,7 @@ body {
   cursor: pointer;
   position: absolute;
   top: 3%;
-  right: -2%;
+  right: -4%;
 }
 
 .open_delete_conf_button:active,
