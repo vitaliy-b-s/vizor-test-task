@@ -59,6 +59,7 @@ export class CardHolderView {
     element.classList.toggle("invisible");
   };
 
+  //binding card check on each user's type
   bindCardNumberCheckOnInput = (handler) => {
     this.cardNumberSections.forEach((section, index) => {
       section.addEventListener("input", (event) => {
@@ -103,9 +104,7 @@ export class CardHolderView {
       this._toggleVisibility(this.confirmationPopup);
 
       const parentNode = event.currentTarget.parentNode;
-      const numberToDelete = parentNode.querySelector(".card_number").innerText;
-
-      this.numberToDelete = numberToDelete;
+      this.numberToDelete = parentNode.querySelector(".card_number").innerText;
       this.elementToDelete = parentNode;
     });
 

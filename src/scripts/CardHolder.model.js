@@ -2,7 +2,7 @@ export class CardHolderModel {
   existingCards;
 
   constructor() {
-    this.existingCards = this._getCardsFromLocalStorage("cards") || [];
+    this.existingCards = this._getItemsFromLocalStorage("cards") || [];
     this.valid = require("card-validator");
     this.cardTypes = {
       visa: "visa",
@@ -15,11 +15,8 @@ export class CardHolderModel {
     };
   }
 
-  _getCardsFromLocalStorage = (key) => {
-    const JSONCards = window.localStorage.getItem(key);
-    const cards = JSON.parse(JSONCards);
-    return cards;
-  };
+  _getItemsFromLocalStorage = (key) => JSON.parse(window.localStorage.getItem(key))
+
 
   _setItemToLocalStorage = (key, value) => {
     return Promise.resolve().then(function () {
@@ -35,8 +32,8 @@ export class CardHolderModel {
     this.provideCardNumberCheckResult = callback;
   };
 
-  bindCardPresenceCheckError = (callback) => {
-    this.cardPresenceCheckError = callback;
+  bindCardDuplicated = (callback) => {
+    this.onCardDuplicated = callback;
   };
 
   bindApproveAddingCard = (callback) => {
@@ -47,15 +44,15 @@ export class CardHolderModel {
     this.onInitializeApp(this.existingCards);
   };
 
-  checkCardNumberOnInput = (number) => {
+  checkCardNumberValidity = (number) => {
     const numberToValidate = this.valid.number(number);
     const isPotentiallyValid = numberToValidate.isPotentiallyValid;
     const cardToCheck = numberToValidate.card;
 
     if (
-      isPotentiallyValid &&
-      (cardToCheck.type === this.cardTypes.visa ||
-        cardToCheck.type === this.cardTypes.mastercard)
+        isPotentiallyValid &&
+        (cardToCheck.type === this.cardTypes.visa ||
+            cardToCheck.type === this.cardTypes.mastercard)
     ) {
       this.provideCardNumberCheckResult(true);
     } else {
@@ -71,7 +68,7 @@ export class CardHolderModel {
     if (number.length < 16 || !isValid) {
       this.provideCardNumberCheckResult(false);
     } else if (this.checkIfCardPresent(number)) {
-      this.cardPresenceCheckError();
+      this.onCardDuplicated();
     } else {
       this.cardToAdd.number = number;
       this.cardToAdd.type = cardToCheck.type;

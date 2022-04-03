@@ -10,13 +10,13 @@ export class CardHolderController {
     this.view.bindDeleteCardFromList(this.deleteCardFromList);
 
     this.model.bindCardNumberCheck(this.onCardNumberChecked);
-    this.model.bindCardPresenceCheckError(this.showWarningMessage);
+    this.model.bindCardDuplicated(this.showWarningMessage);
     this.model.bindApproveAddingCard(this.addCardToScreen);
     this.model.bindInitializeApp(this.showExistingCards);
   }
 
   handleCheckNumberOnInput = (number) => {
-    this.model.checkCardNumberOnInput(number);
+    this.model.checkCardNumberValidity(number);
   };
 
   handleCommentInput = (comment) => {
